@@ -381,6 +381,8 @@ void* writer_thread(void * threadarg) {
 #else
 worker_t writer_thread(void * threadarg) {
 #endif
+#else
+void* writer_thread(void * threadarg) {
 #endif
   void * db;
   int threadid, i, j, cksum;
@@ -491,6 +493,8 @@ void* reader_thread(void * threadarg) {
 #else
 worker_t reader_thread(void * threadarg) {
 #endif
+#else
+void* writer_thread(void * threadarg) {
 #endif
   void * db;
   int threadid, i, j;
