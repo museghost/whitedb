@@ -37,11 +37,7 @@
 #include <stdint.h>
 #endif
 
-#ifdef _WIN32
-#include "../config-w32.h"
-#else
-#include "../config.h"
-#endif
+#include "../config-platform.h"
 
 #define USE_DATABASE_HANDLE
 /*

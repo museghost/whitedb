@@ -33,6 +33,9 @@
 
 
 /* ==== Protos ==== */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 gint wg_parse_json_file(void *db, char *filename);
 gint wg_check_json(void *db, char *buf);
@@ -40,5 +43,9 @@ gint wg_parse_json_document(void *db, char *buf, void **document);
 gint wg_parse_json_fragment(void *db, char *buf, void **document);
 gint wg_parse_json_param(void *db, char *buf, void **document);
 void wg_print_json_document(void *db, void *cb, void *cb_ctx, void *document);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* DEFINED_DBJSON_H */

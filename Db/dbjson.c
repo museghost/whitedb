@@ -44,11 +44,7 @@ extern "C" {
 #include <malloc.h>
 #endif*/
 
-#ifdef _WIN32
-#include "../config-w32.h"
-#else
-#include "../config.h"
-#endif
+#include "../config-platform.h"
 
 #include "dbdata.h"
 #include "dbcompare.h"
@@ -57,7 +53,7 @@ extern "C" {
 #include "dbutil.h"
 #include "../json/yajl_api.h"
 
-#ifdef _WIN32
+#if defined(_WIN32) && (!defined(__MINGW32__) || !defined(__MINGW64__))
 #define strncpy(d, s, sz) strncpy_s(d, sz+1, s, sz)
 #define strnlen strnlen_s
 #endif

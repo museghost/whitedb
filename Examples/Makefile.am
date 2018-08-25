@@ -35,4 +35,4 @@ demo_SOURCES = demo.c
 demo_LDADD = ../Main/libwgdb.la
 
 query_SOURCES = query.c
-query_LDADD = ../Main/libwgdb.la ../Test/libTest.la
+query_LDADD = ../Test/libTest.la ../Main/libwgdb.la 

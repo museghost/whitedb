@@ -31,11 +31,7 @@
 #ifndef DEFINED_DBTEST_H
 #define DEFINED_DBTEST_H
 
-#ifdef _WIN32
-#include "../config-w32.h"
-#else
-#include "../config.h"
-#endif
+#include "../config-platform.h"
 
 /* ====== general typedefs and macros ======= */
 

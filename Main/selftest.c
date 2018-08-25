@@ -37,11 +37,7 @@
 extern "C" {
 #endif
 
-#ifdef _WIN32
-#include "../config-w32.h"
-#else
-#include "../config.h"
-#endif
+#include "../config-platform.h"
 #include "../Db/dballoc.h"
 #include "../Test/dbtest.h"
 #ifdef USE_REASONER

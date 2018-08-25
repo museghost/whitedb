@@ -42,11 +42,7 @@
 extern "C" {
 #endif
 
-#ifdef _WIN32
-#include "../config-w32.h"
-#else
-#include "../config.h"
-#endif
+#include "../config-platform.h"
 #include "dballoc.h"
 #include "dbfeatures.h"
 #include "dblock.h"
@@ -1211,7 +1207,10 @@ gint wg_free_object(void* db, void* area_header, gint object) {
     prevobjectsize=getfreeobjectsize(dbfetch(db,(object-sizeof(gint))));
     prevobject=object-prevobjectsize;
     prevobjecthead=dbfetch(db,prevobject);
-    if (!isfreeobject(prevobjecthead) || !getfreeobjectsize(prevobject)==prevobjectsize) {
+	// macros: bitwise calculation
+	// isfreeobject(i)  (((i) & 3)==1) /** end bits 01 */
+	// getfreeobjectsize(i) ((i) & ~3)
+	if (!isfreeobject(prevobjecthead) || (!getfreeobjectsize(prevobject))==prevobjectsize) {
       show_dballoc_error(db,"wg_free_object notices corruption: previous object is not ok free object");
       return -4; // corruption noticed
     }

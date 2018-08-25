@@ -37,11 +37,7 @@
 extern "C" {
 #endif
 
-#ifdef _WIN32
-#include "../config-w32.h"
-#else
-#include "../config.h"
-#endif
+#include "../config-platform.h"
 #include "../Db/dballoc.h"
 #include "../Db/dbmem.h"
 #include "../Db/dblock.h"

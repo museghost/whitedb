@@ -28,6 +28,8 @@ AM_INIT_AUTOMAKE
 #Initialize libtool
 AC_PROG_LIBTOOL
 
+LT_INIT([win32-dll])
+
 # ------- Checking -------
 
 AC_MSG_NOTICE([====== checking ======])

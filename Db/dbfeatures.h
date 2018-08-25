@@ -28,11 +28,7 @@
 #ifndef DEFINED_DBFEATURES_H
 #define DEFINED_DBFEATURES_H
 
-#ifdef _WIN32
-#include "../config-w32.h"
-#else
-#include "../config.h"
-#endif
+#include "../config-platform.h"
 
 /* Used to check for individual features */
 #define FEATURE_BITS_64BIT 0x1

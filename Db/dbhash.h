@@ -31,11 +31,7 @@
 #ifndef DEFINED_DBHASH_H
 #define DEFINED_DBHASH_H
 
-#ifdef _WIN32
-#include "../config-w32.h"
-#else
-#include "../config.h"
-#endif
+#include "../config-platform.h"
 #include "dballoc.h"
 
 /* ==== Public macros ==== */

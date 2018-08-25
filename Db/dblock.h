@@ -28,11 +28,7 @@
 #ifndef DEFINED_DBLOCK_H
 #define DEFINED_DBLOCK_H
 
-#ifdef _WIN32
-#include "../config-w32.h"
-#else
-#include "../config.h"
-#endif
+#include "../config-platform.h"
 
 /* ==== Public macros ==== */
 

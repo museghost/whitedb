@@ -50,11 +50,7 @@
 extern "C" {
 #endif
 
-#ifdef _WIN32
-#include "../config-w32.h"
-#else
-#include "../config.h"
-#endif
+#include "../config-platform.h"
 #include "dballoc.h"
 #include "dbdata.h"
 #include "dbhash.h"
@@ -68,6 +64,9 @@ extern "C" {
 #ifdef _WIN32
 //Thread-safe localtime_r appears not to be present on windows: emulate using win localtime, which is thread-safe.
 static struct tm * localtime_r (const time_t *timer, struct tm *result);
+#endif
+
+#ifdef _MSC_VER
 #define sscanf sscanf_s  // warning: needs extra buflen args for string etc params
 #define snprintf sprintf_s
 #endif
@@ -1719,7 +1718,7 @@ int wg_current_utcdate(void* db) {
 int wg_current_localdate(void* db) {
   time_t esecs;
   int res;
-  struct tm ctime;
+  struct tm ctime = {0};
 
   esecs=time(NULL); // secs since Epoch 1970tstruct.time;
   localtime_r(&esecs,&ctime);
@@ -1749,7 +1748,7 @@ int wg_current_localtime(void* db) {
   time_t esecs;
   int secs;
   int milli;
-  struct tm ctime;
+  struct tm ctime = {0};
 
   ftime(&tstruct);
   esecs=tstruct.time;
@@ -2942,7 +2941,12 @@ static struct tm * localtime_r (const time_t *timer, struct tm *result) {
    res = localtime_s (&local_result,timer);
    if (!res) return NULL;
    //if (local_result == NULL || result == NULL) return NULL;
-   memcpy (result, &local_result, sizeof (result));
+#if defined(__MINGW32__) || defined(__MINGW64__)
+	// https://github.com/jhammond/xltop/issues/4
+	memcpy (result, &local_result, sizeof (*result));
+#else
+	memcpy (result, &local_result, sizeof (result));
+#endif
    return result;
 }
 #endif

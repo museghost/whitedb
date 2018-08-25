@@ -52,11 +52,7 @@
 extern "C" {
 #endif
 
-#ifdef _WIN32
-#include "../config-w32.h"
-#else
-#include "../config.h"
-#endif
+#include "../config-platform.h"
 #include "../Db/dballoc.h"
 #include "../Db/dbdata.h"
 #include "../Db/dbhash.h"
@@ -72,7 +68,7 @@ extern "C" {
 
 /* ====== Private headers and defs ======== */
 
-#ifdef _WIN32
+#ifdef _MSC_VER
 #define snprintf sprintf_s
 #endif
 

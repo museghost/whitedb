@@ -27,11 +27,8 @@
 
 #ifndef DEFINED_DBQUERY_H
 #define DEFINED_DBQUERY_H
-#ifdef _WIN32
-#include "../config-w32.h"
-#else
-#include "../config.h"
-#endif
+
+#include "../config-platform.h"
 
 #include "dbdata.h"
 #include "dbindex.h"

@@ -49,7 +49,7 @@ extern "C" {
 #include "dbutil.h"
 #include "dbquery.h"
 
-#ifdef _WIN32
+#ifdef _MSC_VER
 #define snprintf(s, sz, f, ...) _snprintf_s(s, sz+1, sz, f, ## __VA_ARGS__)
 #define strncpy(d, s, sz) strncpy_s(d, sz+1, s, sz)
 #else

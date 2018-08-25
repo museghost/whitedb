@@ -38,7 +38,7 @@
 #define LLONG_MIN LONG_MIN
 #endif
 
-#ifdef _WIN32
+#ifdef _MSC_VER
 #define snprintf(s, sz, f, ...) _snprintf_s(s, sz+1, sz, f, ## __VA_ARGS__)
 #endif
 
@@ -697,7 +697,11 @@ yajl_gen_integer(yajl_gen g, long long int number)
 {
     char i[32];
     ENSURE_VALID_STATE; ENSURE_NOT_KEY; INSERT_SEP; INSERT_WHITESPACE;
+#ifdef _MSC_VER
     snprintf(i, 31, "%lld", number);
+#else
+	snprintf(i, 31, "%I64d", number);
+#endif
     g->print(g->ctx, i, (unsigned int)strlen(i));
     APPENDED_ATOM;
     FINAL_NEWLINE;
@@ -705,9 +709,11 @@ yajl_gen_integer(yajl_gen g, long long int number)
 }
 
 #if defined(_WIN32) || defined(WIN32)
+#ifdef _MSC_VER
 #include <float.h>
 #define isnan _isnan
 #define isinf !_finite
+#endif
 #endif
 
 yajl_gen_status

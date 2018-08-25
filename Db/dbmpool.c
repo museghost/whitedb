@@ -45,11 +45,7 @@
 extern "C" {
 #endif
 
-#ifdef _WIN32
-#include "../config-w32.h"
-#else
-#include "../config.h"
-#endif
+#include "../config-platform.h"
 #include "dballoc.h"
 #include "dbmem.h"
 #include "dbapi.h"

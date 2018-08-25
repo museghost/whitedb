@@ -31,20 +31,19 @@
 #ifndef DEFINED_DBDATA_H
 #define DEFINED_DBDATA_H
 
-#ifdef _WIN32
-#include "../config-w32.h"
-#else
-#include "../config.h"
-#endif
+#include "../config-platform.h"
 #include "dballoc.h"
 
 // ============= external funs defs ============
-
-#ifndef _WIN32
+#if defined(_WIN32)
+#if defined(__MINGW32__) || defined(__MINGW64__)
 extern double round(double);
 #else
 /* round as a macro (no libm equivalent for MSVC) */
 #define round(x) ((double) floor((double) x + 0.5))
+#endif
+#else
+extern double round(double);
 #endif
 
 // ============= api part starts ================

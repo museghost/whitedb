@@ -30,11 +30,7 @@
 #ifndef DEFINED_DBMPOOL_H
 #define DEFINED_DBMPOOL_H
 
-#ifdef _WIN32
-#include "../config-w32.h"
-#else
-#include "../config.h"
-#endif
+#include "../config-platform.h"
 
 
 /* ====== data structures ======== */

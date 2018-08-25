@@ -52,11 +52,7 @@
 extern "C" {
 #endif
 
-#ifdef _WIN32
-#include "../config-w32.h"
-#else
-#include "../config.h"
-#endif
+#include "../config-platform.h"
 #include "../Db/dballoc.h"
 #include "../Db/dbmem.h"
 #include "../Db/dbdata.h"
@@ -74,7 +70,7 @@ extern "C" {
 
 /* ====== Private defs =========== */
 
-#ifdef _WIN32
+#ifdef _MSC_VER
 #define sscanf sscanf_s  /* XXX: This will break for string parameters */
 #endif
 

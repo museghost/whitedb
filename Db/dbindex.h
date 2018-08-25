@@ -28,11 +28,7 @@
 #ifndef DEFINED_DBINDEX_H
 #define DEFINED_DBINDEX_H
 
-#ifdef _WIN32
-#include "../config-w32.h"
-#else
-#include "../config.h"
-#endif
+#include "../config-platform.h"
 
 /* For gint data type */
 #include "dbdata.h"

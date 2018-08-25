@@ -38,11 +38,7 @@
 #include <sys/time.h>
 #endif
 
-#ifdef _WIN32
-#include "../config-w32.h"
-#else
-#include "../config.h"
-#endif
+#include "../config-platform.h"
 
 #ifdef HAVE_PTHREAD
 #include <pthread.h>
@@ -93,8 +89,19 @@ typedef void * worker_t;
 int prepare_data(void *db);
 void check_data(void *db, int wcnt);
 void run_workers(void *db, int rcnt, int wcnt);
+
+#ifdef _WIN32
+#if defined(__MINGW32__) || defined(__MINGW64__)
+void* writer_thread(void * threadarg);
+void* reader_thread(void * threadarg);
+#else
 worker_t writer_thread(void * threadarg);
 worker_t reader_thread(void * threadarg);
+#endif
+#else
+void* writer_thread(void * threadarg);
+void* reader_thread(void * threadarg);
+#endif
 
 
 /* ====== Global vars ======== */
@@ -368,7 +375,13 @@ workers_done:
  *  Runs preconfigured number of basic write transactions
  */
 
+#if defined(_WIN32)
+#if defined(__MINGW32__) || defined(__MINGW64__)
+void* writer_thread(void * threadarg) {
+#else
 worker_t writer_thread(void * threadarg) {
+#endif
+#endif
   void * db;
   int threadid, i, j, cksum;
   void *rec = NULL, *frec = NULL;
@@ -462,6 +475,7 @@ worker_t writer_thread(void * threadarg) {
 writer_done:
 #if defined(HAVE_PTHREAD)
   pthread_exit(NULL);
+  return 0;
 #elif defined(_WIN32)
   return 0;
 #endif
@@ -471,7 +485,13 @@ writer_done:
  *  Runs preconfigured number of read transactions
  */
 
+#if defined(_WIN32)
+#if defined(__MINGW32__) || defined(__MINGW64__)
+void* reader_thread(void * threadarg) {
+#else
 worker_t reader_thread(void * threadarg) {
+#endif
+#endif
   void * db;
   int threadid, i, j;
   void *rec = NULL;
@@ -560,6 +580,7 @@ worker_t reader_thread(void * threadarg) {
 reader_done:
 #if defined(HAVE_PTHREAD)
   pthread_exit(NULL);
+  return 0;
 #elif defined(_WIN32)
   return 0;
 #endif
