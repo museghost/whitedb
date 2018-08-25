@@ -494,7 +494,7 @@ void* reader_thread(void * threadarg) {
 worker_t reader_thread(void * threadarg) {
 #endif
 #else
-void* writer_thread(void * threadarg) {
+void* reader_thread(void * threadarg) {
 #endif
   void * db;
   int threadid, i, j;
