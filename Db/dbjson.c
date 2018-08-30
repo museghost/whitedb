@@ -53,9 +53,11 @@ extern "C" {
 #include "dbutil.h"
 #include "../json/yajl_api.h"
 
-#if defined(_WIN32) && (!defined(__MINGW32__) || !defined(__MINGW64__))
+#if defined(_WIN32)
+#if !defined(__MINGW32__) && !defined(__MINGW64__)
 #define strncpy(d, s, sz) strncpy_s(d, sz+1, s, sz)
 #define strnlen strnlen_s
+#endif
 #endif
 
 #ifdef USE_BACKLINKING
