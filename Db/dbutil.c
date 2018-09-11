@@ -248,7 +248,6 @@ void wg_snprint_value(void *db, gint enc, char *buf, int buflen) {
       break;
     case WG_INTTYPE:
       intdata = wg_decode_int(db, enc);
-      //snprintf(buf, buflen, "%d", intdata);
 #ifdef _MSC_VER
       snprintf(buf, buflen, "%lld", intdata);
 #elif __APPLE__
@@ -290,19 +289,34 @@ void wg_snprint_value(void *db, gint enc, char *buf, int buflen) {
       intdata = wg_decode_date(db, enc);
       wg_strf_iso_datetime(db,intdata,0,strbuf);
       strbuf[10]=0;
-      //snprintf(buf, buflen, "<raw date %d>%s", intdata, strbuf);
+#ifdef _MSC_VER
       snprintf(buf, buflen, "<raw date %lld>%s", intdata, strbuf);
+#elif __APPLE__
+      snprintf(buf, buflen, "<raw date %lld>%s", intdata, strbuf);
+#elif defined(__linux__) || defined(__gnu_linux__) || defined(linux) || defined(__linux)
+      snprintf(buf, buflen, "<raw date %"PRId64">%s", intdata, strbuf);
+#endif
       break;
     case WG_TIMETYPE:
       intdata = wg_decode_time(db, enc);
       wg_strf_iso_datetime(db,1,intdata,strbuf);
-      //snprintf(buf, buflen, "<raw time %d>%s",intdata,strbuf+11);
+#ifdef _MSC_VER
       snprintf(buf, buflen, "<raw time %lld>%s", intdata, strbuf+11);
+#elif __APPLE__
+      snprintf(buf, buflen, "<raw time %lld>%s", intdata, strbuf+11);
+#elif defined(__linux__) || defined(__gnu_linux__) || defined(linux) || defined(__linux)
+      snprintf(buf, buflen, "<raw time %"PRId64">%s", intdata, strbuf+11);
+#endif      
       break;
     case WG_VARTYPE:
       intdata = wg_decode_var(db, enc);
-      //snprintf(buf, buflen, "?%d", intdata);
+#ifdef _MSC_VER
       snprintf(buf, buflen, "?%lld", intdata);
+#elif __APPLE__
+      snprintf(buf, buflen, "?%lld", intdata);
+#elif defined(__linux__) || defined(__gnu_linux__) || defined(linux) || defined(__linux)
+      snprintf(buf, buflen, "?%"PRId64, intdata);
+#endif 
       break;
     case WG_ANONCONSTTYPE:
       strdata = wg_decode_anonconst(db, enc);
