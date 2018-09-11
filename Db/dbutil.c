@@ -2,7 +2,7 @@
 * $Id:  $
 * $Version: $
 *
-* Copyright (c) Priit Järv 2010,2011,2012,2013
+* Copyright (c) Priit Jï¿½rv 2010,2011,2012,2013
 *
 * Minor mods by Tanel Tammet. Triple handler for raptor and raptor
 * rdf parsing originally written by Tanel Tammet.
@@ -34,6 +34,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <inttypes.h>
 
 #ifdef HAVE_RAPTOR
 #include <raptor.h>
@@ -248,7 +249,13 @@ void wg_snprint_value(void *db, gint enc, char *buf, int buflen) {
     case WG_INTTYPE:
       intdata = wg_decode_int(db, enc);
       //snprintf(buf, buflen, "%d", intdata);
+#ifdef _MSC_VER
       snprintf(buf, buflen, "%lld", intdata);
+#elif __APPLE__
+      snprintf(buf, buflen, "%lld", intdata);
+#elif defined(__linux__) || defined(__gnu_linux__) || defined(linux) || defined(__linux)
+      snprintf(buf, buflen, "%PRId64", intdata);
+#endif
       break;
     case WG_DOUBLETYPE:
       doubledata = wg_decode_double(db, enc);
