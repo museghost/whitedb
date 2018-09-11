@@ -91,6 +91,25 @@ vendor/**
 .DS_Store
 .AppleDouble
 .LSOverride
+autom4te.cache/**
+Db/Makefile
+Db/Makefile.in
+Main/Makefile
+Main/Makefile.in
+Parser/Makefile
+Parser/Makefile.in
+Printer/Makefile
+Printer/Makefile.in
+Python/Makefile
+Python/Makefile.in
+Reasoner/Makefile
+Reasoner/Makefile.in
+Test/Makefile
+Test/Makefile.in
+json/Makefile
+json/Makefile.in
+Examples/Makefile
+Examples/Makefile.in
 
 # Icon must end with two \r
 Icon
