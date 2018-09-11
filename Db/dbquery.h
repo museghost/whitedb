@@ -127,6 +127,8 @@ void *wg_find_record_var(void *db, gint fieldnr, gint cond, gint data,
     void* lastrecord);
 void *wg_find_record_int(void *db, gint fieldnr, gint cond, int data,
     void* lastrecord);
+void *wg_find_record_int64(void* db, gint fieldnr, gint cond, gint64 data,
+    void* lastrecord);
 void *wg_find_record_double(void *db, gint fieldnr, gint cond, double data,
     void* lastrecord);
 void *wg_find_record_str(void *db, gint fieldnr, gint cond, char *data,

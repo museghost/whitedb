@@ -2224,6 +2224,14 @@ void *wg_find_record_int(void *db, gint fieldnr, gint cond, int data,
   return rec;
 }
 
+void *wg_find_record_int64(void* db, gint fieldnr, gint cond, gint64 data,
+    void* lastrecord) {
+  gint enc = wg_encode_query_param_int(db, data);
+  void* rec = wg_find_record(db, fieldnr, cond, enc, lastrecord);
+  wg_free_query_param(db, enc);
+  return rec;
+}
+
 /*
  * Wrapper function for wg_find_record with unencoded data (double)
  */

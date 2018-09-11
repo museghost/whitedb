@@ -228,7 +228,7 @@ static void snprint_record(void *db, wg_int* rec, char *buf, int buflen) {
  */
 void wg_snprint_value(void *db, gint enc, char *buf, int buflen) {
   gint ptrdata;
-  int intdata, len;
+  int64_t intdata, len;
   char *strdata, *exdata;
   double doubledata;
   char strbuf[80];
@@ -247,7 +247,8 @@ void wg_snprint_value(void *db, gint enc, char *buf, int buflen) {
       break;
     case WG_INTTYPE:
       intdata = wg_decode_int(db, enc);
-      snprintf(buf, buflen, "%d", intdata);
+      //snprintf(buf, buflen, "%d", intdata);
+      snprintf(buf, buflen, "%lld", intdata);
       break;
     case WG_DOUBLETYPE:
       doubledata = wg_decode_double(db, enc);
@@ -282,16 +283,19 @@ void wg_snprint_value(void *db, gint enc, char *buf, int buflen) {
       intdata = wg_decode_date(db, enc);
       wg_strf_iso_datetime(db,intdata,0,strbuf);
       strbuf[10]=0;
-      snprintf(buf, buflen, "<raw date %d>%s", intdata,strbuf);
+      //snprintf(buf, buflen, "<raw date %d>%s", intdata, strbuf);
+      snprintf(buf, buflen, "<raw date %lld>%s", intdata, strbuf);
       break;
     case WG_TIMETYPE:
       intdata = wg_decode_time(db, enc);
       wg_strf_iso_datetime(db,1,intdata,strbuf);
-      snprintf(buf, buflen, "<raw time %d>%s",intdata,strbuf+11);
+      //snprintf(buf, buflen, "<raw time %d>%s",intdata,strbuf+11);
+      snprintf(buf, buflen, "<raw time %lld>%s", intdata, strbuf+11);
       break;
     case WG_VARTYPE:
       intdata = wg_decode_var(db, enc);
-      snprintf(buf, buflen, "?%d", intdata);
+      //snprintf(buf, buflen, "?%d", intdata);
+      snprintf(buf, buflen, "?%lld", intdata);
       break;
     case WG_ANONCONSTTYPE:
       strdata = wg_decode_anonconst(db, enc);
@@ -340,7 +344,7 @@ static void csv_escaped_str(void *db, char *iptr, char *buf, int buflen) {
  *  The value is written into a character buffer.
  */
 static void snprint_value_csv(void *db, gint enc, char *buf, int buflen) {
-  int intdata, ilen;
+  int64_t intdata, ilen;
   double doubledata;
   char strbuf[80], *ibuf;
 
@@ -351,11 +355,13 @@ static void snprint_value_csv(void *db, gint enc, char *buf, int buflen) {
       break;
     case WG_RECORDTYPE:
       intdata = ptrtooffset(db, wg_decode_record(db, enc));
-      snprintf(buf, buflen, "\"<record offset %d>\"", intdata);
+      //snprintf(buf, buflen, "\"<record offset %d>\"", intdata);
+      snprintf(buf, buflen, "\"<record offset %lld>\"", intdata);
       break;
     case WG_INTTYPE:
       intdata = wg_decode_int(db, enc);
-      snprintf(buf, buflen, "%d", intdata);
+      //snprintf(buf, buflen, "%d", intdata);
+      snprintf(buf, buflen, "%lld", intdata);
       break;
     case WG_DOUBLETYPE:
       doubledata = wg_decode_double(db, enc);
