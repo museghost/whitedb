@@ -23,6 +23,7 @@
 #include <limits.h>
 #include <errno.h>
 #include <ctype.h>
+#include <inttypes.h>
 
 #include "yajl_api.h"
 #include "yajl_all.h"
@@ -700,11 +701,11 @@ yajl_gen_integer(yajl_gen g, long long int number)
 #if defined(_MSC_VER)
       snprintf(i, 31, "%lld", number);
 #elif defined(__MINGW32__) || defined(__MINGW64__)
-      snprintf(buf, buflen, "\"<record offset %"PRId64">\"", intdata);
+      snprintf(i, 31, "%"PRId64, number);
 #elif defined(__APPLE__)
       snprintf(i, 31, "%lld", number);
 #elif defined(__linux__) || defined(__gnu_linux__) || defined(linux) || defined(__linux)
-      snprintf(i, 31, "%"PRId64, number);    
+      snprintf(i, 31, "%"PRId64, number);
 #endif 
     g->print(g->ctx, i, (unsigned int)strlen(i));
     APPENDED_ATOM;
