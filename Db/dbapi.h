@@ -35,6 +35,8 @@
 
 /* For gint/wg_int types */
 #include <stddef.h>
+/* For int64_t types */
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
