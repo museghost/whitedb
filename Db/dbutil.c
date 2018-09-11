@@ -376,8 +376,15 @@ static void snprint_value_csv(void *db, gint enc, char *buf, int buflen) {
       break;
     case WG_RECORDTYPE:
       intdata = ptrtooffset(db, wg_decode_record(db, enc));
-      //snprintf(buf, buflen, "\"<record offset %d>\"", intdata);
+#if defined(_MSC_VER)
       snprintf(buf, buflen, "\"<record offset %lld>\"", intdata);
+#elif defined(__MINGW32__) || defined(__MINGW64__)
+      snprintf(buf, buflen, "\"<record offset %"PRId64">\"", intdata);
+#elif defined(__APPLE__)
+      snprintf(buf, buflen, "\"<record offset %lld>\"", intdata);
+#elif defined(__linux__) || defined(__gnu_linux__) || defined(linux) || defined(__linux)
+      snprintf(buf, buflen, "\"<record offset %"PRId64">\"", intdata);
+#endif 
       break;
     case WG_INTTYPE:
       intdata = wg_decode_int(db, enc);
