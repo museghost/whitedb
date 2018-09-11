@@ -697,7 +697,15 @@ yajl_gen_integer(yajl_gen g, long long int number)
 {
     char i[32];
     ENSURE_VALID_STATE; ENSURE_NOT_KEY; INSERT_SEP; INSERT_WHITESPACE;
-    snprintf(i, 31, "%lld", number);
+#if defined(_MSC_VER)
+      snprintf(i, 31, "%lld", number);
+#elif defined(__MINGW32__) || defined(__MINGW64__)
+      snprintf(buf, buflen, "\"<record offset %"PRId64">\"", intdata);
+#elif defined(__APPLE__)
+      snprintf(i, 31, "%lld", number);
+#elif defined(__linux__) || defined(__gnu_linux__) || defined(linux) || defined(__linux)
+      snprintf(i, 31, "%"PRId64, number);    
+#endif 
     g->print(g->ctx, i, (unsigned int)strlen(i));
     APPENDED_ATOM;
     FINAL_NEWLINE;
