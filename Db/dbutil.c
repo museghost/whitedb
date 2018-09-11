@@ -254,7 +254,7 @@ void wg_snprint_value(void *db, gint enc, char *buf, int buflen) {
 #elif __APPLE__
       snprintf(buf, buflen, "%lld", intdata);
 #elif defined(__linux__) || defined(__gnu_linux__) || defined(linux) || defined(__linux)
-      snprintf(buf, buflen, "%PRId64", intdata);
+      snprintf(buf, buflen, "%"PRId64, intdata);
 #endif
       break;
     case WG_DOUBLETYPE:
