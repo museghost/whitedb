@@ -96,6 +96,11 @@ Db/Makefile
 Db/Makefile.in
 Main/Makefile
 Main/Makefile.in
+Main/gendata
+Main/indextool
+Main/selftest
+Main/wgdb
+Main/stresstest
 Parser/Makefile
 Parser/Makefile.in
 Printer/Makefile
@@ -110,6 +115,27 @@ json/Makefile
 json/Makefile.in
 Examples/Makefile
 Examples/Makefile.in
+Examples/demo
+Examples/query
+whitedb.pc
+test-driver
+stamp-h1
+py-compile
+missing
+Makefile
+Makefile.in
+ltmain.sh
+libtool
+install-sh
+depcomp
+configure
+config.sub
+config.status
+config.h.in
+config.h
+config.guess
+compile
+aclocal.m4
 
 # Icon must end with two \r
 Icon
